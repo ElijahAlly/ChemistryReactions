@@ -18,9 +18,11 @@ services:
     name: chemreactions-frontend
     env: docker
     dockerfilePath: frontend/Dockerfile
-    buildCommand: docker build -t chemreactions-frontend ./frontend
-    startCommand: nginx -g 'daemon off;'
     envVars:
+      - key: HOST
+        value: 0.0.0.0
+      - key: PORT
+        value: 3000
       - key: VITE_API_URL
         fromService:
           name: chemreactions-backend
