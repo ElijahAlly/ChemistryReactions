@@ -23,6 +23,7 @@ Base = declarative_base()
 
 def init_db():
     from .elements import ElementModel  # Import your models here
+    from .molecules import MoleculeModel
     
     print("Creating database tables...")
     try:
