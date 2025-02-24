@@ -24,6 +24,11 @@ app = FastAPI(
     version="1.0.0"
 )
 
+# Add this endpoint for Render health checks
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy"}
+
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,

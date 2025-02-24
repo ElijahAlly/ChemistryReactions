@@ -1,0 +1,36 @@
+services:
+  # Backend Service
+  - type: web
+    name: chemreactions-backend
+    env: docker
+    dockerfilePath: backend/Dockerfile
+    buildCommand: docker build -t chemreactions-backend ./backend
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: CORS_ORIGIN
+        value: https://chemreactions.org
+      - key: PORT
+        value: 8000
+    healthCheckPath: /health
+
+  # Frontend Service
+  - type: web
+    name: chemreactions-frontend
+    env: docker
+    dockerfilePath: frontend/Dockerfile
+    buildCommand: docker build -t chemreactions-frontend ./frontend
+    startCommand: nginx -g 'daemon off;'
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          name: chemreactions-backend
+          type: web
+          property: url
+    healthCheckPath: /
+
+# Add a free PostgreSQL database if needed
+databases:
+  - name: chemreactions-db
+    databaseName: chemreactions
+    user: chemreactions_user
+    ipAllowList: [] # Allow all IPs
