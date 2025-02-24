@@ -8,9 +8,13 @@ services:
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: CORS_ORIGIN
-        value: https://chemreactions.org
+        value: "https://chemreactions.org,https://chemistryreactionsfrontend.onrender.com"
       - key: PORT
         value: 8000
+      - key: DATABASE_URL
+        fromDatabase:
+          name: chemreactions-db
+          property: connectionString
     healthCheckPath: /health
 
   # Frontend Service
@@ -34,5 +38,5 @@ services:
 databases:
   - name: chemreactions-db
     databaseName: chemreactions
-    user: chemreactions_user
+    plan: free
     ipAllowList: [] # Allow all IPs

@@ -24,6 +24,21 @@ app = FastAPI(
     version="1.0.0"
 )
 
+# Configure CORS with multiple origins
+allowed_origins = [
+    "http://localhost:5173",  # Local development
+    "https://chemreactions.org",  # Production domain
+    "https://chemistryreactionsfrontend.onrender.com"  # Render domain
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.on_event("startup")
 async def startup_event():
     try:
@@ -37,15 +52,6 @@ async def startup_event():
 @app.get("/health")
 async def health_check():
     return {"status": "healthy"}
-
-# Configure CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Update this with your frontend URL in production
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 # Include routers
 app.include_router(molecules.router, prefix="/api/molecules", tags=["molecules"])

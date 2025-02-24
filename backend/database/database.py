@@ -13,6 +13,8 @@ if DATABASE_URL.startswith("sqlite"):
         connect_args={"check_same_thread": False}
     )
 else:
+    # Ensure we're using the correct PostgreSQL URL format
+    DATABASE_URL = DATABASE_URL.replace('postgres://', 'postgresql://')
     engine = create_engine(DATABASE_URL)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -21,26 +23,29 @@ Base = declarative_base()
 
 def init_db():
     from .elements import ElementModel  # Import your models here
+    from .molecules import MoleculeModel
     
     print("Creating database tables...")
-    Base.metadata.create_all(bind=engine)
-    
-    db = SessionLocal()
     try:
-        # Check if data already exists
-        if db.query(ElementModel).count() == 0:
-            print("Seeding database...")
-            # Your seeding logic here
-            from ..scripts.seed_db import seed_db
-            seed_db(db)
-            print("Database seeded successfully!")
-        else:
-            print("Database already contains data, skipping seed.")
+        # Create all tables first
+        Base.metadata.create_all(bind=engine)
+        print("Tables created successfully")
+        
+        db = SessionLocal()
+        try:
+            # Now check if we need to seed
+            if db.query(ElementModel).count() == 0:
+                print("Seeding database...")
+                from ..scripts.seed_db import seed_db
+                seed_db(db)
+                print("Database seeded successfully!")
+            else:
+                print("Database already contains data, skipping seed.")
+        finally:
+            db.close()
     except Exception as e:
         print(f"Error during database initialization: {e}")
         raise
-    finally:
-        db.close()
 
 def get_db():
     db = SessionLocal()

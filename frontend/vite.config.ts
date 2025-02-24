@@ -11,7 +11,10 @@ export default defineConfig({
 			'localhost',
 			'127.0.0.1',
 			'.onrender.com',  // Allows all subdomains on render.com
-			'chemistryreactionsfrontend.onrender.com'
+			'chemistryreactionsfrontend.onrender.com',
+            // When domain is purchased
+			// 'chemistryreactions.org',
+			// 'chemreactions.org',
 		]
 	},
 	server: {
