@@ -22,7 +22,7 @@ services:
       - key: HOST
         value: 0.0.0.0
       - key: PORT
-        value: 3000
+        value: 10000
       - key: VITE_API_URL
         fromService:
           name: chemreactions-backend
