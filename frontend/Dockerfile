@@ -12,13 +12,18 @@ RUN bun install
 COPY . .
 
 # Build the app
-RUN bun run prepare && bun run build
+RUN bun run build
 
-# Production stage
-FROM nginx:alpine
-COPY --from=builder /app/build /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Use a lightweight server to serve static files
+FROM node:alpine
 
-EXPOSE 80
+WORKDIR /app
 
-CMD ["nginx", "-g", "daemon off;"]
+# Install serve
+RUN npm install -g serve
+
+# Copy built files from builder stage
+COPY --from=builder /app/build ./build
+
+# Use $PORT environment variable from Render
+CMD ["sh", "-c", "serve -s build -l ${PORT:-3000}"]
