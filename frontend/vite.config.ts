@@ -4,6 +4,20 @@ import { svelteTesting } from "@testing-library/svelte/vite";
 
 export default defineConfig({
     plugins: [sveltekit()],
+    preview: {
+		host: true,
+		port: 10000,
+		allowedHosts: [
+			'localhost',
+			'127.0.0.1',
+			'.onrender.com',  // Allows all subdomains on render.com
+			'chemistryreactionsfrontend.onrender.com'
+		]
+	},
+	server: {
+		host: true,
+		port: 10000
+	},
     test: {
         workspace: [{
             extends: "./vite.config.ts",
