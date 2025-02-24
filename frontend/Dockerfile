@@ -14,16 +14,21 @@ COPY . .
 # Build the app
 RUN bun run build
 
-# Use a lightweight server to serve static files
-FROM node:alpine
+# Use the same bun image for production
+FROM oven/bun:1
 
 WORKDIR /app
 
-# Install serve
-RUN npm install -g serve
+# Copy the build output
+COPY --from=builder /app/build build/
+COPY --from=builder /app/package.json .
 
-# Copy built files from builder stage
-COPY --from=builder app/ .
+# Install production dependencies
+RUN bun install --production
 
 # Use $PORT environment variable from Render
-CMD ["sh", "-c", "serve -s build -l ${PORT:-3000}"]
+ENV PORT=3000
+EXPOSE 3000
+
+# Start the server
+CMD ["bun", "build/index.js"]
