@@ -12,7 +12,7 @@ RUN bun install
 COPY . .
 
 # Build the app
-RUN bun run build
+RUN bun run prepare && bun run build
 
 # Use a lightweight server to serve static files
 FROM node:alpine
@@ -23,7 +23,7 @@ WORKDIR /app
 RUN npm install -g serve
 
 # Copy built files from builder stage
-COPY --from=builder /app/build ./build
+COPY --from=builder app/.svelte-kit/output/client ./build
 
 # Use $PORT environment variable from Render
 CMD ["sh", "-c", "serve -s build -l ${PORT:-3000}"]
