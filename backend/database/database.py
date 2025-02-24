@@ -35,7 +35,7 @@ def init_db():
             # Now check if we need to seed
             if db.query(ElementModel).count() == 0:
                 print("Seeding database...")
-                from ..scripts.seed_db import seed_db
+                from scripts.seed_db import seed_db
                 seed_db(db)
                 print("Database seeded successfully!")
             else:
