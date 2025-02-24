@@ -20,8 +20,9 @@ FROM oven/bun:1
 WORKDIR /app
 
 # Copy the build output
-COPY --from=builder /app/build build/
+COPY --from=builder /app/build .
 COPY --from=builder /app/package.json .
+COPY --from=builder /app/node_modules ./node_modules
 
 # Install production dependencies
 RUN bun install --production
