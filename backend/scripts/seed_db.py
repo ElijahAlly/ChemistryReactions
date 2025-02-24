@@ -4,10 +4,8 @@ from database.elements import ElementModel
 from .molecules import test_molecules
 from .elements import test_elements
 
-def seed_db():
+def seed_db(db):
     """Seed the database with initial data"""
-    db = SessionLocal()
-    
     try:
         # Check if elements already exist
         existing_elements = db.query(ElementModel).count()
@@ -40,9 +38,9 @@ def seed_db():
     finally:
         db.close()
 
-if __name__ == "__main__":
-    # Add this to make the script runnable from any directory
-    import sys
-    from pathlib import Path
-    sys.path.append(str(Path(__file__).parent.parent))
-    seed_db()
+# if __name__ == "__main__":
+#     # Add this to make the script runnable from any directory
+#     import sys
+#     from pathlib import Path
+#     sys.path.append(str(Path(__file__).parent.parent))
+#     seed_db()

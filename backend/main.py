@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from database.init_db import init_db
+from database.database import init_db
 from scripts.seed_db import seed_db
 from api.routes import molecules, elements  # Remove reactions and simulations for now
 
@@ -23,6 +23,15 @@ app = FastAPI(
     description="API for simulating and visualizing chemical reactions",
     version="1.0.0"
 )
+
+@app.on_event("startup")
+async def startup_event():
+    try:
+        init_db()
+        print("Database initialization complete!")
+    except Exception as e:
+        print(f"Error during startup: {e}")
+        raise
 
 # Add this endpoint for Render health checks
 @app.get("/health")
