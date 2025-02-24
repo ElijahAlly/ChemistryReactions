@@ -20,7 +20,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 def init_db():
-    from elements import ElementModel  # Import your models here
+    from .elements import ElementModel  # Import your models here
     
     print("Creating database tables...")
     Base.metadata.create_all(bind=engine)
