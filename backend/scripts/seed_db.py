@@ -37,10 +37,3 @@ def seed_db(db):
         raise e
     finally:
         db.close()
-
-# if __name__ == "__main__":
-#     # Add this to make the script runnable from any directory
-#     import sys
-#     from pathlib import Path
-#     sys.path.append(str(Path(__file__).parent.parent))
-#     seed_db()

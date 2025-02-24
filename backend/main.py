@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database.database import init_db
-from scripts.seed_db import seed_db
 from api.routes import molecules, elements  # Remove reactions and simulations for now
 
 def setup_database():
@@ -9,8 +8,6 @@ def setup_database():
     try:
         # Initialize database (create tables)
         init_db()
-        # Seed database with initial data
-        seed_db()
     except Exception as e:
         print(f"Error setting up database: {e}")
         raise e
@@ -41,12 +38,7 @@ app.add_middleware(
 
 @app.on_event("startup")
 async def startup_event():
-    try:
-        init_db()
-        print("Database initialization complete!")
-    except Exception as e:
-        print(f"Error during startup: {e}")
-        raise
+    pass
 
 # Add this endpoint for Render health checks
 @app.get("/health")
