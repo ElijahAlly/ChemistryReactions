@@ -14,6 +14,10 @@ COPY . .
 # Build the app
 RUN bun run build
 
+RUN ls -la
+RUN ls -la .svelte-kit/
+RUN ls -la build/
+
 # Use the same bun image for production
 FROM oven/bun:1
 
