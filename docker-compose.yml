@@ -1,0 +1,30 @@
+services:
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - CORS_ORIGIN=http://localhost:5173
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  frontend:
+    image: oven/bun:1
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.svelte-kit
+    working_dir: /app
+    environment:
+      - VITE_API_URL=http://localhost:8000/api
+    command: >
+      sh -c "bun install &&
+             bun run prepare &&
+             bunx --bun vite dev --host"
+    depends_on:
+      - backend
