@@ -10,23 +10,11 @@ RUN bun install
 # Copy app files
 COPY . .
 
-# Add debugging commands before build
-RUN ls -la
-RUN echo "Content of svelte.config.js:"
-RUN cat svelte.config.js
-RUN echo "Content of vite.config.ts:"
-RUN cat vite.config.ts
-RUN echo "Content of package.json:"
-RUN cat package.json
-
 # Sync SvelteKit files first
 RUN bunx svelte-kit sync
 
-# Verify .svelte-kit directory was created
-RUN ls -la .svelte-kit
-
-# Build with verbose logging
-RUN VITE_LOG_LEVEL=debug bun run build || (echo "Build failed with error code $?" && exit 1)
+# Build 
+RUN bun run build
 
 # Use $PORT environment variable from Render and set host
 ENV HOST=0.0.0.0
