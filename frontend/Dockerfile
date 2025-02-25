@@ -4,6 +4,7 @@ WORKDIR /app
 
 # Copy package files and install dependencies
 COPY package.json ./
+RUN bun clean
 RUN bun install
 
 # Copy app files
