@@ -18,4 +18,4 @@ ENV HOST=0.0.0.0
 EXPOSE 10000
 
 # Start the server
-CMD bun run preview -- --host ${HOST} --port ${PORT:-10000}
+CMD ["bun", "run", "preview"]
