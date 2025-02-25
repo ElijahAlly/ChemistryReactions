@@ -5,7 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build",
+		"build": "vite build && vite build --ssr",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -13,7 +13,8 @@
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run && npm run test:e2e",
 		"test:e2e": "playwright test",
-		"clean": "rm -rf node_modules bun.lock .svelte-kit"
+		"clean": "rm -rf node_modules bun.lock .svelte-kit",
+		"sync": "svelte-kit sync"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.49.1",

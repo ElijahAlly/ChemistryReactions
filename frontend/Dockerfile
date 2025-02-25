@@ -19,6 +19,12 @@ RUN cat vite.config.ts
 RUN echo "Content of package.json:"
 RUN cat package.json
 
+# Sync SvelteKit files first
+RUN bunx svelte-kit sync
+
+# Verify .svelte-kit directory was created
+RUN ls -la .svelte-kit
+
 # Build with verbose logging
 RUN VITE_LOG_LEVEL=debug bun run build || (echo "Build failed with error code $?" && exit 1)
 
