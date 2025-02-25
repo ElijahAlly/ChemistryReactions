@@ -21,6 +21,16 @@ export default defineConfig({
 		host: true,
 		port: 10000
 	},
+    build: {
+		// Add these options to help with the build
+		sourcemap: true,
+		rollupOptions: {
+			onwarn(warning, warn) {
+				if (warning.code === 'CIRCULAR_DEPENDENCY') return;
+				warn(warning);
+			}
+		}
+	},
     test: {
         workspace: [{
             extends: "./vite.config.ts",
