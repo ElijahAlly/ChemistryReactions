@@ -1,15 +1,15 @@
 <script lang="ts">
-    let { currentView, updateCurrentView } = $props();
+    let { currentView = $bindable() } = $props();
 </script>
 
 <div class="fixed left-0 top-16 h-full w-48 px-4 py-9 border-r">
     <h2 class="text-md font-semibold mb-4">View Elements As:</h2>
     <nav class="space-y-2">
         <a 
-            href="#cards"
+            href="#list"
             class="block p-2 hover:bg-gray-200 rounded"
-            class:bg-gray-200={currentView === 'cards'}
-            onclick={() => updateCurrentView('cards')}
+            class:bg-gray-200={currentView === 'list'}
+            onclick={() => currentView = 'list'}
         >
             Cards
         </a>
@@ -17,7 +17,7 @@
             href="#periodic" 
             class="block p-2 hover:bg-gray-200 rounded"
             class:bg-gray-200={currentView === 'periodic'}
-            onclick={() => updateCurrentView('periodic')}
+            onclick={() => currentView = 'periodic'}
         >
             Periodic Table
         </a>
@@ -25,7 +25,7 @@
             href="#table" 
             class="block p-2 hover:bg-gray-200 rounded"
             class:bg-gray-200={currentView === 'table'}
-            onclick={() => updateCurrentView('table')}
+            onclick={() => currentView = 'table'}
         >
             Data Table
         </a>
@@ -33,7 +33,7 @@
             href="#text" 
             class="block p-2 hover:bg-gray-200 rounded"
             class:bg-gray-200={currentView === 'text'}
-            onclick={() => updateCurrentView('text')}
+            onclick={() => currentView = 'text'}
         >
             Plain Text
         </a>

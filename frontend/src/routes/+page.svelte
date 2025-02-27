@@ -16,7 +16,7 @@
             title: 'Elements',
             description: 'Browse the periodic table and element properties',
             href: '/elements',
-            icon: '🔬'
+            icon: '⚛️'
         },
         {
             title: 'Reactions',

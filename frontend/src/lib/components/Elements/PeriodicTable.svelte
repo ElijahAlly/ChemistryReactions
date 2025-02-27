@@ -1,18 +1,18 @@
 <script lang="ts">
+    import { elements } from "$lib/stores/elements";
     import type { Element } from "$lib/types/elements";
     import { categories, getCategoryColor, getElementPosition } from "$lib/utils/elementHelpers";
 
-    export let elements: Element[];
     let highlightedCategory: string | null = null;
 
     const grid = Array(10).fill(null).map(() => Array(18).fill(null));
 
-    elements.forEach(element => {
+    $elements.forEach(element => {
         const pos = getElementPosition(element.atomic_number);
         grid[pos.y][pos.x] = element;
     });
 
-    let selectedElement: Element = elements[0]; // Default to Hydrogen
+    let selectedElement: Element = $elements[0]; // Default to Hydrogen
 
     const elementClass = 'aspect-square p-1 text-xs border rounded hover:shadow-md hover:border-black transition-shadow flex flex-col cursor-pointer';
 

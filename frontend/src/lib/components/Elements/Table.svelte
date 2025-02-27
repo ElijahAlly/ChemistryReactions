@@ -1,7 +1,5 @@
 <script lang="ts">
-  import type { Element } from "$lib/types/elements";
-
-    export let elements: Element[];
+    import { elements } from "$lib/stores/elements";
 </script>
 
 <div class="overflow-x-auto">
@@ -16,7 +14,7 @@
             </tr>
         </thead>
         <tbody>
-            {#each elements as element}
+            {#each $elements as element}
                 <tr class="border-b hover:bg-gray-50">
                     <td class="px-4 py-2 text-center">{element.atomic_number}</td>
                     <td class="px-4 py-2 text-center font-semibold">{element.symbol}</td>

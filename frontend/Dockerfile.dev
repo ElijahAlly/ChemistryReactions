@@ -1,0 +1,18 @@
+FROM oven/bun:1
+
+WORKDIR /app
+
+# Copy package files and install dependencies
+COPY package.json ./
+RUN bun install
+
+# Copy the rest of the application
+COPY . .
+
+# Sync SvelteKit files
+RUN bunx svelte-kit sync
+
+EXPOSE 5173
+
+# Use explicit host and port configuration
+CMD ["bunx", "--bun", "vite", "dev", "--host", "0.0.0.0", "--port", "5173"]

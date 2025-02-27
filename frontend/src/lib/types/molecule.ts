@@ -1,3 +1,5 @@
+import type { Element } from "./elements";
+
 export interface MoleculeProperties {
     logp?: number;
     polar_surface_area?: number;
@@ -25,3 +27,9 @@ export interface MoleculeCreate {
     smiles: string;
     molecular_weight: number;
 }
+
+export interface Formula {
+    element: Element;
+    count: number;
+    custom_mass?: number;
+};

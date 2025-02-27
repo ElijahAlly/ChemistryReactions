@@ -1,7 +1,6 @@
 <script lang="ts">
-    import type { Element } from "$lib/types/elements";
+    import { elements } from "$lib/stores/elements";
 
-    export let elements: Element[];
     let separator = '_';
     let elementSeparator = '__';
     let copySuccess = false;
@@ -59,7 +58,7 @@
             </button>
         {/if}
         <div bind:this={textDiv} class="w-full max-w-full break-words whitespace-pre-wrap overflow-x-auto p-4 font-mono">
-            {#each elements as element}
+            {#each $elements as element}
                 {element.atomic_number}{separator}{element.name}{separator}{element.symbol}{separator}{element.atomic_weight.toFixed(3)}{elementSeparator}
             {/each}
         </div>

@@ -1,6 +1,6 @@
-import type { Element } from "$lib/types/elements";
+import type { ElementType } from "$lib/types/elements";
 
-export const getCategoryColor = (element: Element): string => {
+export const getCategoryColor = (element: ElementType): string => {
     if (!element) return '#ffffff';
     
     // --- Metals ---
@@ -102,7 +102,6 @@ export const getElementPosition = (atomicNumber: number) => {
     
     return { x: 0, y: 0 };
 }
-
 
 export const  categories = {
     nonmetals: [
