@@ -34,7 +34,7 @@
 </script>
 
 <div class="w-full">
-    <h1 class="text-3xl font-bold text-gray-900 mb-4">Create a New Molecule</h1>
+    <h1 class="text-3xl font-bold text-gray-900 mb-4">Add a New Molecule</h1>
     <form on:submit={handleSubmit} class="flex flex-col w-full">
         <div class="py-4 border-t flex flex-col">
             <label for="name" class="font-medium mb-3">Name:</label>
